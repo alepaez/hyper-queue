@@ -1,0 +1,19 @@
+{
+  "name": "hyper-queue",
+  "version": "0.0.1",
+  "description": "generic queue processing library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alepaez/hyper-queue.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alepaez/hyper-queue/issues"
+  },
+  "homepage": "https://github.com/alepaez/hyper-queue#readme"
+}
