@@ -2,18 +2,24 @@
   "name": "hyper-queue",
   "version": "0.0.1",
   "description": "generic queue processing library",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint 'src/**/*.ts'"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alepaez/hyper-queue.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Alexandre Paez Sequeira",
+  "license": "GNU GENERAL PUBLIC LICENSE v3",
   "bugs": {
     "url": "https://github.com/alepaez/hyper-queue/issues"
   },
-  "homepage": "https://github.com/alepaez/hyper-queue#readme"
+  "homepage": "https://github.com/alepaez/hyper-queue#readme",
+  "devDependencies": {
+    "tslint": "^6.1.3",
+    "typescript": "^4.1.5"
+  }
 }
