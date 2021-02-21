@@ -1,4 +1,4 @@
-import Message from './message';
+import Message from './Message';
 
 interface Queue {
   push(msgData: string): any,
