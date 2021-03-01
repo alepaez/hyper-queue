@@ -12,11 +12,7 @@ export default class MemoryQueue implements Queue {
 
   private removeFromProcessingQueue (msgData): void {
     const index = this.processingQueue.indexOf(msgData);
-    const length = this.processingQueue.length;
-    this.processingQueue = [
-      ...this.processingQueue.slice(0, index-1),
-      ...this.processingQueue.slice(index+1, length),
-    ];
+    this.processingQueue.splice(index, 1);
   }
 
   private retry(msgData: string): () => boolean {
