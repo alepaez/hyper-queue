@@ -1,6 +1,6 @@
 import Message from './Message';
 
-interface Queue {
-  push(msgData: string): any,
+export default interface Queue {
+  push(msgData: string): void,
   pop(): Message,
 }

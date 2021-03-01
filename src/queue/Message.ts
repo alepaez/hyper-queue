@@ -1,4 +1,5 @@
-interface Message {
-  retry(): any,
-  delete(): any,
+export default interface Message {
+  body: string,
+  retry(): Promise<boolean>,
+  delete(): Promise<boolean>,
 }
