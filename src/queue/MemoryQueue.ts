@@ -10,21 +10,21 @@ export default class MemoryQueue implements Queue {
     this.processingQueue = [];
   }
 
-  private removeFromProcessingQueue (msgData): void {
+  private removeFromProcessingQueue (msgData: string): void {
     const index = this.processingQueue.indexOf(msgData);
     this.processingQueue.splice(index, 1);
   }
 
-  private retry(msgData: string): () => boolean {
-    return async (): boolean => {
+  private retry(msgData: string): () => Promise<boolean> {
+    return async (): Promise<boolean> => {
       this.queue.push(msgData);
       this.removeFromProcessingQueue(msgData);
       return true;
     };
   }
 
-  private delete(msgData: string): () => boolean {
-    return async (): boolean => {
+  private delete(msgData: string): () => Promise<boolean> {
+    return async (): Promise<boolean> => {
       this.removeFromProcessingQueue(msgData);
       return true;
     };
@@ -34,9 +34,10 @@ export default class MemoryQueue implements Queue {
     this.queue.push(msgData);
   }
 
-  public pop(): Message {
+  public pop(): Message | undefined {
     const queue = this.queue;
     const head = queue.shift();
+    if(!head) return;
     this.processingQueue.push(head);
     return {
       body: head,

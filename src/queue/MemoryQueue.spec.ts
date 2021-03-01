@@ -16,8 +16,14 @@ test('push msg to the end of the queue', () => {
 test('pop return the first message on the queue', () => {
   const queue = createQueue(['abajur', 'folha']);
   const msg = queue.pop();
-  expect(msg.body).toEqual('abajur');
+  expect(msg?.body).toEqual('abajur');
 });
+
+test('pop returns undefined on empty queue', () => {
+  const queue = createQueue([]);
+  const msg = queue.pop();
+  expect(msg).toEqual(undefined);
+})
 
 test('pop removes msg from the queue', () => {
   const queue = createQueue(['abajur', 'folha']);
@@ -34,21 +40,21 @@ test('pop adds msg to the processingQueue', () => {
 test('message retry put msg back to the queue', async () => {
   const queue = createQueue(['abajur', 'folha']);
   const msg = queue.pop();
-  await msg.retry();
+  await msg?.retry();
   expect(queue.queue).toEqual(['folha', 'abajur']);
 });
 
 test('message retry removes msg from the processing Queue', async () => {
   const queue = createQueue(['abajur', 'folha']);
   const msg = queue.pop();
-  await msg.retry();
+  await msg?.retry();
   expect(queue.processingQueue).toEqual([]);
 });
 
 test('message delete removes msg from the processing Queue', async () => {
   const queue = createQueue(['abajur', 'folha']);
   const msg = queue.pop();
-  await msg.delete();
+  await msg?.delete();
   expect(queue.processingQueue).toEqual([]);
   expect(queue.queue).toEqual(['folha']);
 });

@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest --coverage",
     "lint": "tslint 'src/**/*.ts'",
-    "build": "tsc"
+    "build": "rm -rf dist && tsc"
   },
   "repository": {
     "type": "git",
