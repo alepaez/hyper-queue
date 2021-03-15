@@ -30,7 +30,7 @@ export default class MemoryQueue implements Queue {
     };
   }
 
-  public push(msgData: string): void {
+  public async push(msgData: string): Promise<void> {
     this.queue.push(msgData);
   }
 

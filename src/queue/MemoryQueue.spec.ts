@@ -7,9 +7,9 @@ const createQueue = (messages: string[]) => {
   return queue;
 }
 
-test('push msg to the end of the queue', () => {
+test('push msg to the end of the queue', async () => {
   const queue = createQueue(['abajur', 'folha']);
-  queue.push('msg');
+  await queue.push('msg');
   expect(queue.queue).toEqual(['abajur', 'folha', 'msg']);
 });
 
