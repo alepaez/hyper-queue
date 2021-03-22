@@ -4,6 +4,12 @@ import Worker from './Worker';
 
 jest.useFakeTimers();
 
+const flushPromises = () => new Promise(setImmediate);
+
+afterEach(() => {
+  jest.clearAllTimers();
+});
+
 test('Pop message and execute action', async () => {
   const queue = new MemoryQueue();
   await queue.push("Hello World");
@@ -53,8 +59,9 @@ test('Backoff when queue has no message', async () => {
   const backoffSpy = jest.spyOn(Worker.prototype as any, 'backoff');
 
   const run = worker.run();
-  jest.runAllTimers();
   worker.exit();
+  await flushPromises();
+  jest.runAllTimers();
   await run;
 
   expect(backoffSpy).toHaveBeenCalled();
@@ -70,8 +77,9 @@ test('Backoff time is configurable through options object', async() => {
   });;
 
   const run = worker.run();
-  jest.runAllTimers();
   worker.exit();
+  await flushPromises();
+  jest.runAllTimers();
   await run;
 
   expect(setTimeout).toHaveBeenCalled();
