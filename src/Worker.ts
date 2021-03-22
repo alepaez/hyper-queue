@@ -31,7 +31,7 @@ export default class Worker {
   };
 
   private async processMessage(): Promise<void> {
-    const message: Message | undefined = this.queue.pop();
+    const message: Message | undefined = await this.queue.pop();
     if(message) {
       await this.action(message, this);
     } else {

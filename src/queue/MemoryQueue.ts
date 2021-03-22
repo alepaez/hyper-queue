@@ -34,7 +34,7 @@ export default class MemoryQueue implements Queue {
     this.queue.push(msgData);
   }
 
-  public pop(): Message | undefined {
+  public async pop(): Promise<Message | undefined> {
     const queue = this.queue;
     const head = queue.shift();
     if(!head) return;
