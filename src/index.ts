@@ -9,6 +9,8 @@ export {
   Queue,
   Message,
   WorkerOptions,
+  Worker,
+  MemoryQueue,
 };
 
 export default {
