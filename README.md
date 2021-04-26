@@ -25,7 +25,7 @@ const action = async (message: Message, w: Worker): Promise<void> => {
 };
 
 const start: () => void = async () => {
-  const worker = new Worker(queue, action, {});
+  const worker = new Worker(queue, action, {} //Options);
 
   const exit = () => {
     worker.exit();
@@ -35,7 +35,7 @@ const start: () => void = async () => {
   process.on('SIGTERM', exit);
   process.on('SIGINT', exit);
 
-  console.log('Running...')
+  console.log('Running...');
   await worker.run();
   process.exit(0);
 };
@@ -49,6 +49,12 @@ start();
 const queue = // Use one of the available brokers above
 await queue.push("My message"); // You can serialize more complex information using JSON
 ```
+
+# Options
+
+- Backoff
+
+Time in milliseconds (ms) that the worker backoff from pooling messages from queue when there is no messages to pool
 
 # Testing
 
