@@ -25,7 +25,7 @@ const action = async (message: Message, w: Worker): Promise<void> => {
 };
 
 const start: () => void = async () => {
-  const worker = new Worker(queue, action, {});;
+  const worker = new Worker(queue, action, {});
 
   const exit = () => {
     worker.exit();
@@ -47,7 +47,51 @@ start();
 
 ```typescript
 const queue = // Use one of the available brokers above
-
 await queue.push("My message"); // You can serialize more complex information using JSON
 ```
+
+# Testing
+
+## Jest
+
+- MyWorker.ts
+```typescript
+import { Worker, Message, Queue } from 'hyperq';
+
+export default (queue: Queue) => {
+  const action = async (message: Message, w: Worker): Promise<void> => {
+    const msg = message.body;
+    try {
+      // ...do your thing
+    } catch(e) {
+      await message.retry(); // Message goes back to the queue instantly
+    }
+    await message.delete(); // Message is deleted forever
+  };
+
+  return new Worker(queue, action, {});;
+}
+```
+
+- MyWorker.spec.ts
+```typescript
+import { Worker, MemoryQueue } from 'hyperq';
+import MyWorker from './myWorker';
+
+test('process msg', async () => {
+  const queue = new MemoryQueue();
+
+  await queue.push("my_msg");
+
+  const run = MyWorker(queue).run();
+  worker.exit();
+  await run;
+
+  expect(yourThing).toEqual(isDone);
+});
+```
+
+# Fully Functional Examples
+
+- [Async API](https://github.com/alepaez/hyper-queue-examples/tree/main/async-api)
 
